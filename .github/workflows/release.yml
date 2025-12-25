@@ -1,0 +1,38 @@
+name: Release
+
+permissions:
+  contents: write
+  id-token: write
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          registry-url: https://registry.npmjs.org/
+      - name: Clone Private Respository
+        run: |
+          git clone git@github.com:elonehoo/oicd-private-demo.git
+      
+      - name: CD to Private Repository
+        run: |
+          cd oicd-private-demo
+
+      - uses: pnpm/action-setup@v4
+      - run: pnpm install
+
+      - name: Upgrade npm
+        run: npm i -g npm@latest
+
+      - name: Publish to NPM
+        run: pnpm run publish:ci
