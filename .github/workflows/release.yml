@@ -26,6 +26,8 @@ jobs:
           git clone https://x-access-token:${{ secrets.PUBLIC_REPO }}@github.com/elonehoo/oicd-private-demo.git
 
       - uses: pnpm/action-setup@v4
+        with:
+          version: latest
 
       - name: Install dependencies
         working-directory: ./oidc-private-demo
