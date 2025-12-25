@@ -30,12 +30,12 @@ jobs:
           version: latest
 
       - name: Install dependencies
-        working-directory: ./oidc-private-demo
+        working-directory: oidc-private-demo
         run: pnpm install
 
       - name: Upgrade npm
         run: npm i -g npm@latest
 
       - name: Publish to NPM
-        working-directory: ./oidc-private-demo
+        working-directory: oidc-private-demo
         run: pnpm run publish:ci
